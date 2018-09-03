@@ -64,9 +64,10 @@ public final class QueryUtils {
                 JSONObject properties = currentEarthquake.getJSONObject("properties");  //Once we have the current JASON object, we can extract the JASON object associated with the properties key
                 String magnitude = properties.getString("mag");  //Fetch the Strings in the properties keys
                 String location = properties.getString("place");
-                String time = properties.getString("time");
+                long timeInMilliseconds = properties.getLong("time"); // Extract the value for the key called "time" and make it a long variable.
+                //Since the SimpleDateFormat.format() method requires a Date object, which in turn requires a long as input, we should extract the time of the earthquake from the JSON response as a long data type (instead of a String).
 
-                Earthquake earthquake = new Earthquake(magnitude, location, time); // Then create a new earthquake object from these three Strings.
+                Earthquake earthquake = new Earthquake(magnitude, location, timeInMilliseconds); // Then create a new earthquake object from these three Strings.
                 earthquakes.add(earthquake);  // Lastly, add new earthquake object to earthquakes ArrayList.
             }
             // After the loop finishes once per each earthquake in the "features" array, we will then build up a whole array list of earthquakes.

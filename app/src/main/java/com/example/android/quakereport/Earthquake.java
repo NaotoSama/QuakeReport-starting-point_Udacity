@@ -4,16 +4,22 @@ public class Earthquake {
 
     private String mMagnitude;
 
-    private String mPlace;
+    private String mLocation;
 
-    private String mDate;
+    private long mTimeInMilliseconds;
 
 
+    /**
+     * Constructs a new {@link Earthquake} object.
+     * @param magnitude is the magnitude (size) of the earthquake
+     * @param location is the city location of the earthquake
+     * @param timeInMilliseconds is the time in milliseconds (from the Epoch) when the earthquake happened
+     */
     //Call the constructor method to initialize the global member variables at the top based on the values we pass into the constructor.
-    public Earthquake(String magnitude, String place, String date) {
+    public Earthquake(String magnitude, String location, long timeInMilliseconds) {
         mMagnitude = magnitude;
-        mPlace = place;
-        mDate = date;
+        mLocation = location;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
 
 
@@ -22,11 +28,11 @@ public class Earthquake {
         return mMagnitude;
     }
 
-    public String getmPlace() {
-        return mPlace;
+    public String getmLocation() {
+        return mLocation;
     }
 
-    public String getmDate() {
-        return mDate;
+    public long getmTimeInMilliseconds() {
+        return mTimeInMilliseconds;
     }
 }

@@ -17,12 +17,12 @@
 
 
     <TextView
-        android:id="@+id/earthquake_place"
+        android:id="@+id/earthquake_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAppearance="?android:textAppearanceMedium"
-        tools:text="place"/>
+        tools:text="location"/>
 
 
     <TextView
@@ -32,6 +32,14 @@
         android:layout_weight="1"
         android:textAppearance="?android:textAppearanceMedium"
         tools:text="date"/>
+
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="3:00 PM" />
 
 
 </LinearLayout>
