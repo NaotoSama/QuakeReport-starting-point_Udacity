@@ -22,6 +22,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+
+/**
+ * 這個Class目的是要呼叫QuerryUtils Class中的ArrayList，並呼叫EarthquakeAdapter Class中的Adapter(調度器)，
+ * 然後把Adapter(調度器)設置到(對接到)earthquake_activity佈局中的ListView，在ListView上顯示ArrayList。
+ */
+
+
 public class EarthquakeActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();

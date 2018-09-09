@@ -8,6 +8,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
+/**
+ * 這個Class目的是要創建ArrayList，然後抓取網路API的震度、地點和時間這三個要素，
+ * 並透過earthquake object(已導入/對接Earthquake Class)，讓三個模具自動分別對應到前述三個要素的位置上
+ * 最後把ArrayList提交(return)給EarthquakeActivity Class，透過Adapter(調度器)的仲介，把畫面顯示出來。
+ */
+
+
 /**
  * Helper methods related to requesting and receiving earthquake data from USGS.
  */
@@ -59,7 +67,7 @@ public final class QueryUtils {
             //If it is true, we can execute all the lines of code within the loop.
             //At the end of one iteration, we write "i++" to increase the value of "i" by 1.
             //Then we can go ahead and loop around again.
-            for( int i = 0; i < earthquakeArray.length(); i++) {
+            for( int i = 0; i < earthquakeArray.length(); i++) {                  //earthquakeArray.length()這個方法指的是Array的陣列數(length)，i < earthquakeArray.length()意指若i的位置沒有超過Array的陣列數，此時的i意思就變成所在的位置。i要小於陣列數是因為Array的初始位置是從0開始。
                 JSONObject currentEarthquake = earthquakeArray.getJSONObject(i);  // Pull out the JSON object at the specified position of the earthquake array. We start with position 0, which is the initial value of the counter variable "i".
                 JSONObject properties = currentEarthquake.getJSONObject("properties");  //Once we have the current JASON object, we can extract the JASON object associated with the properties key
                 String magnitude = properties.getString("mag");  //Fetch the Strings in the properties keys
@@ -67,7 +75,7 @@ public final class QueryUtils {
                 long timeInMilliseconds = properties.getLong("time"); // Extract the value for the key called "time" and make it a long variable.
                 //Since the SimpleDateFormat.format() method requires a Date object, which in turn requires a long as input, we should extract the time of the earthquake from the JSON response as a long data type (instead of a String).
 
-                Earthquake earthquake = new Earthquake(magnitude, location, timeInMilliseconds); // Then create a new earthquake object from these three Strings.
+                Earthquake earthquake = new Earthquake(magnitude, location, timeInMilliseconds); // Then create a new earthquake object from the Strings and long.
                 earthquakes.add(earthquake);  // Lastly, add new earthquake object to earthquakes ArrayList.
             }
             // After the loop finishes once per each earthquake in the "features" array, we will then build up a whole array list of earthquakes.

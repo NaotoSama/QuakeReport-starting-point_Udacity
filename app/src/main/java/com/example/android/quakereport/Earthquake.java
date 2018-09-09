@@ -1,5 +1,10 @@
 package com.example.android.quakereport;
 
+/**
+ * 這個自定義的Class目的是要定義模具和定義模具擺放的位置
+ */
+
+
 public class Earthquake {
 
     private String mMagnitude;
