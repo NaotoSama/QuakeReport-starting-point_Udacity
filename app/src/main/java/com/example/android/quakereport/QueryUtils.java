@@ -70,7 +70,8 @@ public final class QueryUtils {
             for( int i = 0; i < earthquakeArray.length(); i++) {                  //earthquakeArray.length()這個方法指的是Array的陣列數(length)，i < earthquakeArray.length()意指若i的位置沒有超過Array的陣列數，此時的i意思就變成所在的位置。i要小於陣列數是因為Array的初始位置是從0開始。
                 JSONObject currentEarthquake = earthquakeArray.getJSONObject(i);  // Pull out the JSON object at the specified position of the earthquake array. We start with position 0, which is the initial value of the counter variable "i".
                 JSONObject properties = currentEarthquake.getJSONObject("properties");  //Once we have the current JASON object, we can extract the JASON object associated with the properties key
-                String magnitude = properties.getString("mag");  //Fetch the Strings in the properties keys
+                //Fetch the Strings and doubles (decimal numbers) in the properties keys.
+                double magnitude = properties.getDouble("mag");  //Store magnitude as a double data type. This starts by extracting the decimal magnitude value as a double when parsing the JSON response.
                 String location = properties.getString("place");
                 long timeInMilliseconds = properties.getLong("time"); // Extract the value for the key called "time" and make it a long variable.
                 //Since the SimpleDateFormat.format() method requires a Date object, which in turn requires a long as input, we should extract the time of the earthquake from the JSON response as a long data type (instead of a String).

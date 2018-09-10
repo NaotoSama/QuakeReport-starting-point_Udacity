@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,19 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
 
     /**
+     * Creat a helper method called formatMagnitude() that takes a double value as input and returns the formatted string.
+     * The helper method initializes a DecimalFormat object instance with the pattern string “0.0”.
+     * Then in the getView() method of the adapter, we can read the magnitude value from the current Earthquake object,
+     * format the decimal into a string, and then update the TextView to display the value.
+     * Return the formatted magnitude string showing 1 decimal place (i.e. "3.2") from a decimal magnitude value.
+     */
+    private String formatMagnitude(double magnitude) {
+        DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
+        return magnitudeFormat.format(magnitude);
+    }
+
+
+    /**
      * We will be using the split(String string) method in the String class to split the original string at the position where the text “ of “ occurs.
      * The result will be a String containing the characters PRIOR to the “ of ” text and a String containing the characters AFTER the “ of “ text.
      * Since we’ll frequently need to refer to the “ of “ text, we can define a static final String constant (that is a global variable) at the top of the EarthquakeAdapter class.
@@ -68,10 +82,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         Earthquake currentEarthquake = getItem(position);                                           // We can use the position parameter passed in to get a reference to the appropriate Earthquake object from the list of earthquakes.
 
         TextView magnitudeTextView = (TextView) listItemView.findViewById(R.id.earthquake_magnitude); //Bind the data from the Earthquake object to the views in the custom_earthquake_list_item layout, and set the corresponding data onto them.
-        magnitudeTextView.setText(currentEarthquake.getmMagnitude());
-
-        TextView placeTextView = (TextView) listItemView.findViewById(R.id.location_offset);
-        placeTextView.setText(currentEarthquake.getmLocation());
+        // Format the magnitude to show 1 decimal place
+        String formattedMagnitude = formatMagnitude(currentEarthquake.getmMagnitude());
+        // Display the magnitude of the current earthquake in that TextView
+        magnitudeTextView.setText(formattedMagnitude);
 
 
         /**

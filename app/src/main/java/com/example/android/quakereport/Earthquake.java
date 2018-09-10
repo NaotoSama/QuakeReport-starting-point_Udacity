@@ -7,7 +7,7 @@ package com.example.android.quakereport;
 
 public class Earthquake {
 
-    private String mMagnitude;
+    private double mMagnitude; //Another advantage to storing the earthquake magnitude as a double is that we can do math calculations easily. For example, if we wanted to find the average magnitude of all the earthquakes, we can easily sum up all the magnitudes and divide by the number of earthquakes. We wouldn’t be able to do math calculations if the magnitude values were text Strings.
 
     private String mLocation;
 
@@ -21,7 +21,7 @@ public class Earthquake {
      * @param timeInMilliseconds is the time in milliseconds (from the Epoch) when the earthquake happened
      */
     //Call the constructor method to initialize the global member variables at the top based on the values we pass into the constructor.
-    public Earthquake(String magnitude, String location, long timeInMilliseconds) {
+    public Earthquake(double magnitude, String location, long timeInMilliseconds) {
         mMagnitude = magnitude;
         mLocation = location;
         mTimeInMilliseconds = timeInMilliseconds;
@@ -29,7 +29,7 @@ public class Earthquake {
 
 
     //The global member variables at the top are private, so we need to create public Getter methods for other classes to access them.
-    public String getmMagnitude() {
+    public double getmMagnitude() {
         return mMagnitude;
     }
 
