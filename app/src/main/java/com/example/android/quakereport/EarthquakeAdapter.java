@@ -1,8 +1,10 @@
 package com.example.android.quakereport;
 
 import android.app.Activity;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
 
     /**
-     * Creat a helper method called formatMagnitude() that takes a double value as input and returns the formatted string.
+     * Create a helper method called formatMagnitude() that takes a double value as input and returns the formatted string.
      * The helper method initializes a DecimalFormat object instance with the pattern string “0.0”.
      * Then in the getView() method of the adapter, we can read the magnitude value from the current Earthquake object,
      * format the decimal into a string, and then update the TextView to display the value.
@@ -51,6 +53,57 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private String formatMagnitude(double magnitude) {
         DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
         return magnitudeFormat.format(magnitude);
+    }
+
+    /**
+     * Define a private helper method called getMagnitudeColor(double magnitude) that returns the correct color value based on the current earthquake’s magnitude value.
+     **/
+    //将颜色 资源 ID 转换为颜色整数值int。Need to convert the color resource ID into a color integer value.
+    //The method would take a double magnitude value as input and return a color integer value.
+    //the switch statement cannot accept a double value, so we should convert our decimal magnitude value into an integer.
+    private int getMagnitudeColor(double magnitude) {       //宣告一個獲取震度顏色的方法(getMagnitudeColor)，設定什麼震度對接什麼顏色，並將獲取的顏色屬性轉換成int。在方法的括弧中導入一個argument(素材)，也就是屬性為double的magnitude變數，將會在接下來的statement中使用這個變數。
+        int magnitudeColorResourceId;
+        int magnitudeFloor = (int) Math.floor(magnitude);  //We can use the Math class to do some handy mathematical calculations. In this case, we can take the “floor” of the decimal magnitude value. This means finding the closest integer less than the decimal value. The floor of the value 1.2 would be the integer 1. Informally, for a positive decimal number, you can think of it as truncating the part of the number after the decimal point.
+        switch (magnitudeFloor) {                          //Within each case, we set the value of the magnitudeColorResourceId variable to be one of the color resources that we defined the colors.xml file.
+            case 0:
+            case 1:
+                magnitudeColorResourceId = R.color.magnitude1;  //In Java code, you can refer to the colors that you defined in the colors.xml file using the color resource ID such as R.color.magnitude1, R.color.magnitude2.
+                break;                                          //For case 0 and 1, we fall through to the same logic, which is to use the R.color.magnitude1 color. This was a design decision to use the same color for earthquakes with magnitude less than 2.
+            case 2:
+                magnitudeColorResourceId = R.color.magnitude2;
+                break;
+            case 3:
+                magnitudeColorResourceId = R.color.magnitude3;
+                break;
+            case 4:
+                magnitudeColorResourceId = R.color.magnitude4;
+                break;
+            case 5:
+                magnitudeColorResourceId = R.color.magnitude5;
+                break;
+            case 6:
+                magnitudeColorResourceId = R.color.magnitude6;
+                break;
+            case 7:
+                magnitudeColorResourceId = R.color.magnitude7;
+                break;
+            case 8:
+                magnitudeColorResourceId = R.color.magnitude8;
+                break;
+            case 9:
+                magnitudeColorResourceId = R.color.magnitude9;
+                break;
+            default:
+                magnitudeColorResourceId = R.color.magnitude10plus;  //We also have a default case where any earthquake with magnitude higher than 10 will use the R.color.magnitude10plus color resource.
+                break;
+        }
+        return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
+        /**
+         *Once we find the right color resource ID, we still have one more step to convert it into an actual color value.
+         * Remember that color resource IDs just point to the resource we defined, but not the value of the color.
+         * For example, R.layout.earthquake_list_item is a reference to tell us where the layout is located. It’s just a number, not the full XML layout.
+         * You can call ContextCompat getColor() to convert the color resource ID into an actual integer color value, and return the result as the return value of the getMagnitudeColor() helper method.
+         **/
     }
 
 
@@ -86,6 +139,25 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         String formattedMagnitude = formatMagnitude(currentEarthquake.getmMagnitude());
         // Display the magnitude of the current earthquake in that TextView
         magnitudeTextView.setText(formattedMagnitude);
+
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeTextView.getBackground();  // 从 TextView 获取背景，该背景屬性是一个 GradientDrawable。我們先前已在自定義佈局中的震度View中設置了背景，因此要透過JAVA語法去抓震度View (magnitudeTextView)的背景(getBackground())
+
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getmMagnitude());                 // 根据自定义逻辑获取相应的背景颜色，getMagnitudeColor()返回颜色的整数值
+
+        // Set the color on the magnitude circle     // 设置视图背景的颜色
+        magnitudeCircle.setColor(magnitudeColor);
+        /**
+         * 設置震度顏色的整個流程：
+         * 1.先用findViewById找到震度的View
+         * 2.用getBackground()獲取震度View的背景
+         * 3.在最上面宣告獲取震度顏色的方法(getMagnitudeColor)，並將顏色ID轉換成數值int
+         * 4.對各個位階上的震度(currentEarthquake.getmMagnitude())套用getMagnitudeColor所設置的對應顏色int
+         * 5.將顏色(int)設置到震度的背景(magnitudeCircle)上。此時震度的背景就和顏色int對接完成
+         **/
+
 
 
         /**
