@@ -46,6 +46,7 @@ public final class QueryUtils {
     /**
      * Create a method called extractEarthquakes that takes in no inputs and returns a list of earthquakes.
      * Then, Return a list of {@link Earthquake} objects that has been built up from parsing a JSON response.
+     * 使用try關鍵字來尋找錯誤，若有出現錯誤，錯誤就會跑到catch關鍵字所定義的方法裡並顯示問題訊息，這麼做是要避免App崩潰(crash)
      */
     public static ArrayList<Earthquake> extractEarthquakes() {
 

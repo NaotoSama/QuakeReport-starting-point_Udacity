@@ -63,7 +63,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     //the switch statement cannot accept a double value, so we should convert our decimal magnitude value into an integer.
     private int getMagnitudeColor(double magnitude) {       //宣告一個獲取震度顏色的方法(getMagnitudeColor)，設定什麼震度對接什麼顏色，並將獲取的顏色屬性轉換成int。在方法的括弧中導入一個argument(素材)，也就是屬性為double的magnitude變數，將會在接下來的statement中使用這個變數。
         int magnitudeColorResourceId;
-        int magnitudeFloor = (int) Math.floor(magnitude);  //We can use the Math class to do some handy mathematical calculations. In this case, we can take the “floor” of the decimal magnitude value. This means finding the closest integer less than the decimal value. The floor of the value 1.2 would be the integer 1. Informally, for a positive decimal number, you can think of it as truncating the part of the number after the decimal point.
+        int magnitudeFloor = (int) Math.floor(magnitude);  //Math.floor()最大整數，取小於這個數的最大整數。We can use the Math class to do some handy mathematical calculations. In this case, we can take the “floor” of the decimal magnitude value. This means finding the closest integer less than the decimal value. The floor of the value 1.2 would be the integer 1. Informally, for a positive decimal number, you can think of it as truncating the part of the number after the decimal point.
         switch (magnitudeFloor) {                          //Within each case, we set the value of the magnitudeColorResourceId variable to be one of the color resources that we defined the colors.xml file.
             case 0:
             case 1:
@@ -97,7 +97,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
                 magnitudeColorResourceId = R.color.magnitude10plus;  //We also have a default case where any earthquake with magnitude higher than 10 will use the R.color.magnitude10plus color resource.
                 break;
         }
-        return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
+        return ContextCompat.getColor(getContext(), magnitudeColorResourceId);  //ContextCompat.getColor()返回的值都是整数，它返回的int实际上就是你想要的颜色（一个十六进制颜色作为整数），在大多数情况下，你会被要求输入该颜色。 R.color.xxx int实际上只是一个ID，引用了你的资源中的十六进制/整数颜色，依赖于你正在使用的API可能会被要求提供该ID，但在幕后，肯定会有ContextCompat.getColor()那个ID。
         /**
          *Once we find the right color resource ID, we still have one more step to convert it into an actual color value.
          * Remember that color resource IDs just point to the resource we defined, but not the value of the color.
@@ -145,7 +145,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeTextView.getBackground();  // 从 TextView 获取背景，该背景屬性是一个 GradientDrawable。我們先前已在自定義佈局中的震度View中設置了背景，因此要透過JAVA語法去抓震度View (magnitudeTextView)的背景(getBackground())
 
         // Get the appropriate background color based on the current earthquake magnitude
-        int magnitudeColor = getMagnitudeColor(currentEarthquake.getmMagnitude());                 // 根据自定义逻辑获取相应的背景颜色，getMagnitudeColor()返回颜色的整数值
+        int magnitudeColor = getMagnitudeColor(currentEarthquake.getmMagnitude());                 // 在各位階(currentEarthquake)上抓取個個震度(getmMagnitude)，然後把各震度代入getMagnitudeColor方法，根据自定义Switch逻辑获取相应的背景颜色，getMagnitudeColor()返回颜色的整数值
 
         // Set the color on the magnitude circle     // 设置视图背景的颜色
         magnitudeCircle.setColor(magnitudeColor);
