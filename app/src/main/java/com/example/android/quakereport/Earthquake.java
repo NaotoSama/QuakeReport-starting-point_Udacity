@@ -13,18 +13,22 @@ public class Earthquake {
 
     private long mTimeInMilliseconds;
 
+    private String mUrl;  //Website URL of the earthquake
+
 
     /**
      * Constructs a new {@link Earthquake} object.
      * @param magnitude is the magnitude (size) of the earthquake
      * @param location is the city location of the earthquake
      * @param timeInMilliseconds is the time in milliseconds (from the Epoch) when the earthquake happened
+     * @param url is the website URL to find more details about the earthquake
      */
     //Call the constructor method to initialize the global member variables at the top based on the values we pass into the constructor.
-    public Earthquake(double magnitude, String location, long timeInMilliseconds) {
+    public Earthquake(double magnitude, String location, long timeInMilliseconds, String url) {
         mMagnitude = magnitude;
         mLocation = location;
         mTimeInMilliseconds = timeInMilliseconds;
+        mUrl = url;
     }
 
 
@@ -40,4 +44,9 @@ public class Earthquake {
     public long getmTimeInMilliseconds() {
         return mTimeInMilliseconds;
     }
+
+    public String getmUrl() {   //Returns the website URL to find more information about the earthquake.
+        return mUrl;
+    }
+
 }
